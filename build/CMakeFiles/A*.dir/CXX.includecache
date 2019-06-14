@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/shrey/RL/Planning/A*/A*.cpp
+/home/shrey/Planning/A*/A*.cpp
 queue
 -
 iostream
@@ -14,13 +14,13 @@ iostream
 bits/stdc++.h
 -
 opencv/cv.h
-/home/shrey/RL/Planning/A*/opencv/cv.h
+/home/shrey/Planning/A*/opencv/cv.h
 opencv2/core/core.hpp
-/home/shrey/RL/Planning/A*/opencv2/core/core.hpp
+/home/shrey/Planning/A*/opencv2/core/core.hpp
 opencv2/highgui/highgui.hpp
-/home/shrey/RL/Planning/A*/opencv2/highgui/highgui.hpp
+/home/shrey/Planning/A*/opencv2/highgui/highgui.hpp
 opencv2/imgproc/imgproc.hpp
-/home/shrey/RL/Planning/A*/opencv2/imgproc/imgproc.hpp
+/home/shrey/Planning/A*/opencv2/imgproc/imgproc.hpp
 
 /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv/cv.h
 opencv2/core/core_c.h

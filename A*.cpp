@@ -17,8 +17,10 @@ typedef struct _State
 	double g;
 	double h;
 	struct _State *prnt;
+
 } State;
 
+float weight = 1;
 
 // The operator treats its field as max priority queue so the one thats is greater 
 // gets on the starting of queue, now we want those state that have lesser f values 
@@ -26,12 +28,16 @@ typedef struct _State
 // f value . Now this "less than operator" ideally gives true when 'a' is less than 'b'
 // but as we want them the one with less f value to be treated as of more priority we have 
 // inverted the sign of equality
-bool operator<( State a, State b)
-{
-	// In general is to check for some attribute of State
-	// return a.null_attribute < b.null_attribute;
-	return a->g + a->h > b->g + b->h;
-}
+
+struct stateComparator{
+	bool operator()(State* &a, State* &b)
+	{
+		// In general is to check for some attribute of State
+		// return a.null_attribute < b.null_attribute;
+		return a->g > b->g ;
+		// return a->g + a->h > b->g + b->h;
+	}
+};
 
 class PathPlanner
 {
@@ -56,10 +62,16 @@ public:
 	   	cout<<"Inside Getpath"<<endl;	
 		Mat visited = img.clone();
 
+		record = new State**[imgRows];
+		for (int i = 0; i < imgRows; ++i)
+			record[i] = new State*[imgCols];
+
+
 		// Hybrid Astar Openlist Initiates:
-		priority_queue< State, vector<State> > pq;
+		priority_queue< State*, vector<State*>, stateComparator > pq;
 		start.g = 0;
 		start.h = getHeuristic(start);
+		
 		start.prnt = NULL;
 		
 		pq.push(&start);
@@ -72,14 +84,15 @@ public:
 			State *front = pq.top();
 			pq.pop();
 
-			// cout<<front.x<<"***"<<front.y<<"***"<<front.g+front.h<<endl;
+			cout<<front->x<<" "<<front->y<<" "<<front->h<<endl;
 
 			if( isReached(*front))
 			{
 				cout<<"Reached"<<endl;
 
-				while( front->x != start->x && front->y != start->y )
+				while( !(front->x == start.x && front->y == start.y ))
 				{
+					// cout<<front->x<<" "<<front->y<<endl;
 					img.at<Vec3b>(front->x, front->y) = Vec3b(255,0,0);
 					front = front->prnt;
 		        }  
@@ -93,23 +106,44 @@ public:
 			for (int i = -connNeighbours/2; i <= connNeighbours/2; ++i)
 				for (int j = -connNeighbours/2; j <= connNeighbours/2; ++j)
 				{
-					State *next = new State;
-					next->x = front->x + i, next->y = front->y +j;
+					int nextX,nextY;
+					nextX = front->x + i, nextY = front->y +j;
 
-					if( visited.at<Vec3b>(next->x,next->y) != Vec3b(255,255,255) )
+					if( (img.at<Vec3b>(nextX,nextY) != Vec3b(255,255,255))
+						||(nextX<0 || nextX>imgRows ||  nextY<0 || nextY>imgCols) )
 						continue;
 
-					visited.at<Vec3b>(next->x,next->y) = Vec3b(0,0,255);
+					if( visited.at<Vec3b>(nextX,nextY) == Vec3b(0,0,255) )
+					{
+						State *next;
+						next = record[nextX][nextY]; 	
+						if( next->g > front->g + getCost(*front, *next) )
+						{
+							next->g = front->g + getCost(*front, *next);
+							next->h = getHeuristic(*next);
+							next->prnt = front;	
+						}
 
-					next->g = front.g + getCost(*front, *next);
-					next->h = getHeuristic(*next);
-					next->prnt = front;	
+					}
+					else
+					{
+						visited.at<Vec3b>(nextX,nextY) = Vec3b(0,0,255);
+						
+						State *next = new State;
+						next->x = nextX, next->y = nextY;
+						cout<<"1 "<<endl;
+						cout<<next->x<<" "<<next->y<<endl;	
+						record[next->x][next->y]  = next;
+						cout<<record[next->x][next->y]->x<<" "<<record[next->x][next->y]->y<<endl;	
 
-					// cout<<next->prnt->x<<" "<<next->prnt->y<<endl; 
-					// push creates a copy by value so no use of storing reference anyway
-					pq.push(next);  
+						cout<<"2 "<<endl;
 
-					// cout<<next.x<<" "<<next.y<<" "<<next.g+next.h<<endl;
+						next->g = front->g + getCost(*front, *next);
+						next->h = getHeuristic(*next);
+						next->prnt = front;	
+
+						pq.push(next);  
+					}
 
 				}
 				
@@ -143,7 +177,7 @@ public:
 			return ;
 
 	    img.at<Vec3b>(curr.x, curr.y) = Vec3b(255,0,0);
-	    cout<<curr.prnt->x<<" "<<curr.prnt->y<<endl;
+	    // cout<<curr.prnt->x<<" "<<curr.prnt->y<<endl;
 	    printPath( *(curr.prnt) );   
           
     }
@@ -159,21 +193,20 @@ private:
     Mat img;
     int imgCols, imgRows;
     State start, end;
-    bool *visited;
     vector<State> path;
+    State ***record;
 
 };
 
 int main(int argc, char *argv[])
 {
 	string imagePath;
-	cin>> imagePath;	
+	cin >>imagePath;	
 	cout<<imagePath<<endl;
 	
 	Mat img = imread(imagePath,1);
-	imshow("Original Image",img);
-	waitKey(0);
 
+	cin >>weight; 
 	// Starting State and ending State
 	State start, end;  
 	cout<<"Give start x and start y"<<endl; 
