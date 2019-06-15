@@ -34,8 +34,7 @@ struct stateComparator{
 	{
 		// In general is to check for some attribute of State
 		// return a.null_attribute < b.null_attribute;
-		return a->g > b->g ;
-		// return a->g + a->h > b->g + b->h;
+		return a->g + a->h > b->g + b->h;
 	}
 };
 
@@ -62,19 +61,24 @@ public:
 	   	cout<<"Inside Getpath"<<endl;	
 		Mat visited = img.clone();
 
+		// Show start and end points
+		// circle(img, Point(start.x, start.y), 2, Vec3b(255,0,0), 1);
+		// circle(img, Point(end.x, end.y), 2, Vec3b(0,255,0), 1);
+		// imshow("Planning Problem", img);
+		// waitKey(0);
+
 		record = new State**[imgRows];
 		for (int i = 0; i < imgRows; ++i)
 			record[i] = new State*[imgCols];
-
 
 		// Hybrid Astar Openlist Initiates:
 		priority_queue< State*, vector<State*>, stateComparator > pq;
 		start.g = 0;
 		start.h = getHeuristic(start);
-		
 		start.prnt = NULL;
 		
 		pq.push(&start);
+		record[start.x][start.y] = &start;
 		visited.at<Vec3b>(start.x,start.y) = Vec3b(0,0,255);
 	
 	
@@ -84,7 +88,7 @@ public:
 			State *front = pq.top();
 			pq.pop();
 
-			cout<<front->x<<" "<<front->y<<" "<<front->h<<endl;
+			// cout<<front->x<<" "<<front->y<<" "<<front->h<<endl;
 
 			if( isReached(*front))
 			{
@@ -106,8 +110,10 @@ public:
 			for (int i = -connNeighbours/2; i <= connNeighbours/2; ++i)
 				for (int j = -connNeighbours/2; j <= connNeighbours/2; ++j)
 				{
+					if( i==0 && j==0 ) continue; 
 					int nextX,nextY;
 					nextX = front->x + i, nextY = front->y +j;
+					// cout<<nextX<<" "<<nextY<<endl;	
 
 					if( (img.at<Vec3b>(nextX,nextY) != Vec3b(255,255,255))
 						||(nextX<0 || nextX>imgRows ||  nextY<0 || nextY>imgCols) )
@@ -117,6 +123,7 @@ public:
 					{
 						State *next;
 						next = record[nextX][nextY]; 	
+
 						if( next->g > front->g + getCost(*front, *next) )
 						{
 							next->g = front->g + getCost(*front, *next);
@@ -131,12 +138,7 @@ public:
 						
 						State *next = new State;
 						next->x = nextX, next->y = nextY;
-						cout<<"1 "<<endl;
-						cout<<next->x<<" "<<next->y<<endl;	
 						record[next->x][next->y]  = next;
-						cout<<record[next->x][next->y]->x<<" "<<record[next->x][next->y]->y<<endl;	
-
-						cout<<"2 "<<endl;
 
 						next->g = front->g + getCost(*front, *next);
 						next->h = getHeuristic(*next);
@@ -149,7 +151,6 @@ public:
 				
 			imshow("Search Tree", visited);
 			waitKey(1);
-		
 
 		}
 
@@ -158,7 +159,6 @@ public:
 	double getCost( State curr, State next)
 	{
 		return sqrt(pow(curr.x-next.x,2)+pow(curr.y-next.y,2));
-
 	}
 
 	bool isReached(State curr )
