@@ -13,6 +13,8 @@ iostream
 -
 bits/stdc++.h
 -
+omp.h
+-
 opencv/cv.h
 /home/shrey/Planning/A*/opencv/cv.h
 opencv2/core/core.hpp

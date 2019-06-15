@@ -2,3 +2,6 @@
 2.0
 100 100
 100 190
+
+
+set( CMAKE_CXX_STANDARD 14 )

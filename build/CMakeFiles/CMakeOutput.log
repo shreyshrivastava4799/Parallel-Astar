@@ -554,3 +554,79 @@ make[1]: Leaving directory '/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp'
     Feature record: CXX_FEATURE:0cxx_variable_templates
     Feature record: CXX_FEATURE:0cxx_variadic_macros
     Feature record: CXX_FEATURE:0cxx_variadic_templates
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED succeeded with the following output:
+Change Dir: /home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_643ee/fast"
+/usr/bin/make -f CMakeFiles/cmTC_643ee.dir/build.make CMakeFiles/cmTC_643ee.dir/build
+make[1]: Entering directory '/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_643ee.dir/src.c.o
+/usr/bin/cc    -DOpenMP_FLAG_DETECTED -fopenmp   -o CMakeFiles/cmTC_643ee.dir/src.c.o   -c "/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp/src.c"
+Linking C executable cmTC_643ee
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_643ee.dir/link.txt --verbose=1
+/usr/bin/cc   -DOpenMP_FLAG_DETECTED -fopenmp    CMakeFiles/cmTC_643ee.dir/src.c.o  -o cmTC_643ee -rdynamic 
+make[1]: Leaving directory '/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED succeeded with the following output:
+Change Dir: /home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_cd645/fast"
+/usr/bin/make -f CMakeFiles/cmTC_cd645.dir/build.make CMakeFiles/cmTC_cd645.dir/build
+make[1]: Entering directory '/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_cd645.dir/src.cxx.o
+/usr/bin/c++     -DOpenMP_FLAG_DETECTED -fopenmp   -o CMakeFiles/cmTC_cd645.dir/src.cxx.o -c "/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp/src.cxx"
+Linking CXX executable cmTC_cd645
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cd645.dir/link.txt --verbose=1
+/usr/bin/c++    -DOpenMP_FLAG_DETECTED -fopenmp    CMakeFiles/cmTC_cd645.dir/src.cxx.o  -o cmTC_cd645 -rdynamic 
+make[1]: Leaving directory '/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8ea00/fast"
+/usr/bin/make -f CMakeFiles/cmTC_8ea00.dir/build.make CMakeFiles/cmTC_8ea00.dir/build
+make[1]: Entering directory '/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_8ea00.dir/CheckIncludeFile.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_8ea00.dir/CheckIncludeFile.c.o   -c "/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_8ea00
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8ea00.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_8ea00.dir/CheckIncludeFile.c.o  -o cmTC_8ea00 -rdynamic 
+make[1]: Leaving directory '/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c5863/fast"
+/usr/bin/make -f CMakeFiles/cmTC_c5863.dir/build.make CMakeFiles/cmTC_c5863.dir/build
+make[1]: Entering directory '/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c5863.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_c5863.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_c5863
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c5863.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_c5863.dir/CheckFunctionExists.c.o  -o cmTC_c5863 -rdynamic -lpthread 
+make[1]: Leaving directory '/home/shrey/Planning/A*/build/CMakeFiles/CMakeTmp'
+
+

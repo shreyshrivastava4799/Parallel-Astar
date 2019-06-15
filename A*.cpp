@@ -1,6 +1,7 @@
 #include <queue>
 #include <iostream>
 #include <bits/stdc++.h>
+#include <omp.h>
 
 #include "opencv/cv.h"
 #include "opencv2/core/core.hpp"
@@ -102,7 +103,7 @@ public:
 		        }  
 
 				imshow("Path generated", img);
-				waitKey(0);
+				waitKey(1);
 				return ;
 			}	
 
@@ -200,6 +201,8 @@ private:
 
 int main(int argc, char *argv[])
 {
+	double start_time = omp_get_wtime();
+
 	string imagePath;
 	cin >>imagePath;	
 	cout<<imagePath<<endl;
@@ -217,5 +220,7 @@ int main(int argc, char *argv[])
 	PathPlanner path(start, end, img);
 	path.getPath(); 
 
+	double time = omp_get_wtime() - start_time;
+	cout<<"Time taken: "<<time<<endl;
 	return 0;
 }
