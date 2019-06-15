@@ -30,12 +30,12 @@ float weight = 1;
 // inverted the sign of equality
 
 struct stateComparator{
-	bool operator()(State* &a, State* &b)
+	bool operator()(State &a, State &b)
 	{
 		// In general is to check for some attribute of State
 		// return a.null_attribute < b.null_attribute;
-		return a->g > b->g ;
-		// return a->g + a->h > b->g + b->h;
+		return a.g > b.g;
+		// return a.g + a.h > b.g + b.h;
 	}
 };
 
@@ -59,7 +59,8 @@ public:
 	void getPath()
 	{
 
-	   	cout<<"Inside Getpath"<<endl;	
+	   	cout<<"Inside Getpath"<<endl;
+	   	cout<<"Sizeof State "<<sizeof(State)<<endl;	
 		Mat visited = img.clone();
 
 		record = new State**[imgRows];
@@ -68,33 +69,45 @@ public:
 
 
 		// Hybrid Astar Openlist Initiates:
-		priority_queue< State*, vector<State*>, stateComparator > pq;
+		priority_queue< State, list<State>, stateComparator > pq;
 		start.g = 0;
 		start.h = getHeuristic(start);
+		printf("Address of start: %p\n", &start);
 		
 		start.prnt = NULL;
 		
-		pq.push(&start);
+		pq.push(start);
+
+		end.g = 0;
+		end.h = getHeuristic(end);
+		printf("Address of end: %p\n", &end);
+		
+		end.prnt = NULL;
+		
+		pq.push(end);
 		visited.at<Vec3b>(start.x,start.y) = Vec3b(0,0,255);
 	
 	
 		while(!pq.empty())
 		{
 
-			State *front = pq.top();
+			State front = pq.top();
 			pq.pop();
+			State front1 = pq.top();
+			printf("Address of front: %p\n", &front);
+			printf("Address of front1: %p\n", &front1);
 
-			cout<<front->x<<" "<<front->y<<" "<<front->h<<endl;
+			cout<<front.x<<" "<<front.y<<" "<<front.h<<endl;
 
-			if( isReached(*front))
+			if( isReached(front))
 			{
 				cout<<"Reached"<<endl;
 
-				while( !(front->x == start.x && front->y == start.y ))
+				while( !(front.x == start.x && front.y == start.y ))
 				{
-					// cout<<front->x<<" "<<front->y<<endl;
-					img.at<Vec3b>(front->x, front->y) = Vec3b(255,0,0);
-					front = front->prnt;
+					// cout<<front.x<<" "<<front.y<<endl;
+					img.at<Vec3b>(front.x, front.y) = Vec3b(255,0,0);
+					// front = front.prnt;
 		        }  
 
 				imshow("Path generated", img);
@@ -107,7 +120,7 @@ public:
 				for (int j = -connNeighbours/2; j <= connNeighbours/2; ++j)
 				{
 					int nextX,nextY;
-					nextX = front->x + i, nextY = front->y +j;
+					nextX = front.x + i, nextY = front.y +j;
 
 					if( (img.at<Vec3b>(nextX,nextY) != Vec3b(255,255,255))
 						||(nextX<0 || nextX>imgRows ||  nextY<0 || nextY>imgCols) )
@@ -117,11 +130,11 @@ public:
 					{
 						State *next;
 						next = record[nextX][nextY]; 	
-						if( next->g > front->g + getCost(*front, *next) )
+						if( next->g > front.g + getCost(front, *next) )
 						{
-							next->g = front->g + getCost(*front, *next);
+							next->g = front.g + getCost(front, *next);
 							next->h = getHeuristic(*next);
-							next->prnt = front;	
+							next->prnt = &front;	
 						}
 
 					}
@@ -138,11 +151,11 @@ public:
 
 						cout<<"2 "<<endl;
 
-						next->g = front->g + getCost(*front, *next);
+						next->g = front.g + getCost(front, *next);
 						next->h = getHeuristic(*next);
-						next->prnt = front;	
+						next->prnt = &front;	
 
-						pq.push(next);  
+						pq.push(*next);  
 					}
 
 				}
@@ -177,7 +190,7 @@ public:
 			return ;
 
 	    img.at<Vec3b>(curr.x, curr.y) = Vec3b(255,0,0);
-	    // cout<<curr.prnt->x<<" "<<curr.prnt->y<<endl;
+	    // cout<<curr.prnt.x<<" "<<curr.prnt.y<<endl;
 	    printPath( *(curr.prnt) );   
           
     }
