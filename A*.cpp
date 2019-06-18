@@ -65,12 +65,13 @@ public:
 
 	void getPath()
 	{
+	   	cout<<"Inside Getpath"<<endl;	
+		
 		bool reached = false;
 		unsigned int microseconds = pow(10,3);
 
-	   	cout<<"Inside Getpath"<<endl;	
+		Mat closed = img.clone();
 		Mat visited = img.clone();
-		// Mat closed = img.clone();
 
 		// Show start and end points
 		// circle(img, Point(start.x, start.y), 2, Vec3b(255,0,0), 1);
@@ -81,8 +82,11 @@ public:
 		record = new State**[imgRows];
 		for (int i = 0; i < imgRows; ++i)
 			record[i] = new State*[imgCols];
+		
+		for (int i = 0; i < imgRows; ++i)
+			for (int j = 0; j < imgCols; ++j)
+				record[i][j] = NULL;
 
-		// Hybrid Astar Openlist Initiates:
 		priority_queue< State*, vector<State*>, stateComparator > pq;
 		start.g = 0;
 		start.h = getHeuristic(start);
@@ -94,8 +98,8 @@ public:
 
 		State *front = pq.top();
 		pq.pop();
-		// closed.at<Vec3b>(front->x,front->y) = Vec3b(0,255,0);
-				
+		closed.at<Vec3b>(front->x,front->y) = Vec3b(0,255,0);
+
 		for (int i = -connNeighbours/2; i <= connNeighbours/2; ++i)
 			for (int j = -connNeighbours/2; j <= connNeighbours/2; ++j)
 			{
@@ -128,7 +132,8 @@ public:
 		// at this point K threads should be produced each of which can individually search
 		// and expand nodes
 		// set number of threads and ensure they are maintained 
-		
+		cout<<"Initial size of priority_queue: "<<pq.size()<<endl;
+
 		int totalThreads;
 		#pragma omp parallel shared(reached)
 		{
@@ -136,16 +141,13 @@ public:
 			totalThreads = omp_get_num_threads();
 			printf("Total number of threads: %d\n",totalThreads);
 
-			// a barrier can be put at the end of the code that will make expansion in step fashion
-			// the value of reached will be updated by one thread but it should be appropriately transfered to 
-			// all threads (declaring this variable as global or firstshared something like this)
 			while(!pq.empty() && !reached )
 			{
 				// each one of them should pop from same priority queue but there should be no raceing situation 
 				// we can use critical but this has to be avoided majorly
 				State *front = pq.top();
 				pq.pop();
-				// closed.at<Vec3b>(front->x,front->y) = Vec3b(0,255,0);
+				closed.at<Vec3b>(front->x,front->y) = Vec3b(0,255,0);
 
 				usleep(microseconds);
 
@@ -161,7 +163,6 @@ public:
 					// printf("Earlier value of reached:%d \n",reached);
 					reached = true;
 					// printf("Threadnum and Value of reached: %d %d \n",omp_get_thread_num(),reached);
-					usleep(microseconds);
 				}	
 
 
@@ -187,8 +188,13 @@ public:
 								next->g = front->g + getCost(*front, *next);
 								next->h = getHeuristic(*next);
 								next->prnt = front;	
-								// here check if its part of open or not 
-								// if not then add it to open else fine 
+								
+								if( closed.at<Vec3b>(next->x,next->y) == Vec3b(0,255,0))
+								{
+									printf("Inconsistent states corrected\n");
+									usleep(microseconds*1000);
+									pq.push(next);
+								}
 							}
 
 						}
@@ -212,12 +218,11 @@ public:
 				if (omp_get_thread_num() == 0) 
 				{
 					imshow("Search Tree", visited);
+					imshow("Closed States", closed);					
 					imwrite("../visited.jpg",visited);
 					waitKey(10);
 				}
-
-				printf("Threadnum %d while loop ended\n",omp_get_thread_num());
-				// #pragma omp barrier
+				printf("Threadnum %d one loop of while ended\n",omp_get_thread_num());
 
 			}
 			printf("Threadnum %d outside while loop\n",omp_get_thread_num());
@@ -226,17 +231,17 @@ public:
 
 		if( reached )
 		{
-
+			int pathLength = 0;
 			State *front = record[end.x][end.y];
 			while( !(front->x == start.x && front->y == start.y ))
 			{
 				// cout<<front->x<<" "<<front->y<<endl;
 				// cout<<front->prnt->x<<" "<<front->prnt->y<<endl;
-
+				pathLength++;
 				img.at<Vec3b>(front->x, front->y) = Vec3b(255,0,0);
 				front = front->prnt;
 	        }  
-
+	        cout<<"The length of path found: "<<pathLength<<endl;
 			imshow("Path generated", img);
 			waitKey(0);
 		}
@@ -248,8 +253,11 @@ public:
 		for (int i = 0; i < imgRows; ++i)
 			for (int j = 0; j < imgCols; ++j)
 			{
-				if( record[i][j]!=NULL )
+				if( record[i][j]!=NULL && ((i!=start.x && j!=start.y) || (i!=end.x && j!=end.y)) )
+				{
+					cout<<"Deleted "<<i<<" "<<j<<endl;
 					delete record[i][j];
+				}
 			}
 
 		cout<<"Delete Successful"<<endl;
