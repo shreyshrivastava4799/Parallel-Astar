@@ -40,11 +40,6 @@ struct stateComparator{
 	}
 };
 
-template <class T, class S, class C>
-void clearpq2(priority_queue<T, S, C>& q)
-{
-    q=priority_queue<T, S, C>();
-}
 
 class PathPlanner
 {
@@ -150,9 +145,7 @@ public:
 				closed.at<Vec3b>(front->x,front->y) = Vec3b(0,255,0);
 
 				usleep(microseconds);
-
-				// should dynamically increase number of threads
-				printf("Threadnum:%d size of Priority Queue: %lu and value of reached: %d \n",omp_get_thread_num(), pq.size(), reached);
+				printf("Threadnum:%d size of Priority Queue: %lu : %d %d \n",omp_get_thread_num(), pq.size(), front->x, front->y);
 
 				// cout<<front->x<<" "<<front->y<<" "<<front->h<<endl;
 				// cout<<front->prnt->x<<" "<<front->prnt->y<<endl;
@@ -160,9 +153,8 @@ public:
 				if( isReached(*front))
 				{
 					printf("***********************Reached**************************\n");
-					// printf("Earlier value of reached:%d \n",reached);
 					reached = true;
-					// printf("Threadnum and Value of reached: %d %d \n",omp_get_thread_num(),reached);
+					printf("Threadnum and Value of reached: %d %d \n",omp_get_thread_num(),reached);
 				}	
 
 
@@ -172,6 +164,8 @@ public:
 						if( i==0 && j==0 ) continue; 
 						int nextX,nextY;
 						nextX = front->x + i, nextY = front->y +j;
+						printf("Threadnum:%d: %d %d \n",omp_get_thread_num(), nextX, nextY);
+
 						// cout<<nextX<<" "<<nextY<<endl;	
 
 						if( (img.at<Vec3b>(nextX,nextY) != Vec3b(255,255,255))
@@ -180,6 +174,7 @@ public:
 
 						if( visited.at<Vec3b>(nextX,nextY) == Vec3b(0,0,255) )
 						{
+							printf("Already visited\n");
 							State *next;
 							next = record[nextX][nextY]; 	
 
@@ -200,6 +195,7 @@ public:
 						}
 						else
 						{
+							printf("New state found\n");
 							visited.at<Vec3b>(nextX,nextY) = Vec3b(0,0,255);
 							
 							State *next = new State;
@@ -253,13 +249,10 @@ public:
 		for (int i = 0; i < imgRows; ++i)
 			for (int j = 0; j < imgCols; ++j)
 			{
-				if( record[i][j]!=NULL && ((i!=start.x && j!=start.y) || (i!=end.x && j!=end.y)) )
-				{
-					cout<<"Deleted "<<i<<" "<<j<<endl;
-					delete record[i][j];
-				}
+				if( record[i][j]!=NULL && (i!=start.x && j!=start.y) || ((i!=end.x && j!=end.y)) )
+					delete record[i][j];	
 			}
-
+			
 		cout<<"Delete Successful"<<endl;
 	}
 
