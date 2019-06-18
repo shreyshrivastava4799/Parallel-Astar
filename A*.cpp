@@ -2,6 +2,7 @@
 #include <iostream>
 #include <bits/stdc++.h>
 #include <omp.h>
+#include <unistd.h>
 
 #include "opencv/cv.h"
 #include "opencv2/core/core.hpp"
@@ -39,6 +40,12 @@ struct stateComparator{
 	}
 };
 
+template <class T, class S, class C>
+void clearpq2(priority_queue<T, S, C>& q)
+{
+    q=priority_queue<T, S, C>();
+}
+
 class PathPlanner
 {
  
@@ -58,9 +65,12 @@ public:
 
 	void getPath()
 	{
+		bool reached = false;
+		unsigned int microseconds = pow(10,3);
 
 	   	cout<<"Inside Getpath"<<endl;	
 		Mat visited = img.clone();
+		// Mat closed = img.clone();
 
 		// Show start and end points
 		// circle(img, Point(start.x, start.y), 2, Vec3b(255,0,0), 1);
@@ -81,80 +91,168 @@ public:
 		pq.push(&start);
 		record[start.x][start.y] = &start;
 		visited.at<Vec3b>(start.x,start.y) = Vec3b(0,0,255);
-	
-	
-		while(!pq.empty())
+
+		State *front = pq.top();
+		pq.pop();
+		// closed.at<Vec3b>(front->x,front->y) = Vec3b(0,255,0);
+				
+		for (int i = -connNeighbours/2; i <= connNeighbours/2; ++i)
+			for (int j = -connNeighbours/2; j <= connNeighbours/2; ++j)
+			{
+				if( i==0 && j==0 ) continue; 
+
+				int nextX,nextY;
+				nextX = front->x + i, nextY = front->y +j;
+
+				if( (img.at<Vec3b>(nextX,nextY) != Vec3b(255,255,255))
+					||(nextX<0 || nextX>=imgRows ||  nextY<0 || nextY>=imgCols) )
+					continue;
+
+				visited.at<Vec3b>(nextX,nextY) = Vec3b(0,0,255);
+					
+				State *next = new State;
+				next->x = nextX, next->y = nextY;
+				record[next->x][next->y]  = next;
+
+				next->g = front->g + getCost(*front, *next);
+				next->h = getHeuristic(*next);
+				next->prnt = front;	
+				// cout<<nextX<<" "<<nextY<<endl;	
+				// cout<<next->prnt->x<<" "<<next->prnt->y<<endl;
+
+
+
+				pq.push(next);  
+			}		
+
+		// at this point K threads should be produced each of which can individually search
+		// and expand nodes
+		// set number of threads and ensure they are maintained 
+		
+		int totalThreads;
+		#pragma omp parallel shared(reached)
 		{
 
-			State *front = pq.top();
-			pq.pop();
+			totalThreads = omp_get_num_threads();
+			printf("Total number of threads: %d\n",totalThreads);
 
-			// cout<<front->x<<" "<<front->y<<" "<<front->h<<endl;
-
-			if( isReached(*front))
+			// a barrier can be put at the end of the code that will make expansion in step fashion
+			// the value of reached will be updated by one thread but it should be appropriately transfered to 
+			// all threads (declaring this variable as global or firstshared something like this)
+			while(!pq.empty() && !reached )
 			{
-				cout<<"Reached"<<endl;
+				// each one of them should pop from same priority queue but there should be no raceing situation 
+				// we can use critical but this has to be avoided majorly
+				State *front = pq.top();
+				pq.pop();
+				// closed.at<Vec3b>(front->x,front->y) = Vec3b(0,255,0);
 
-				while( !(front->x == start.x && front->y == start.y ))
+				usleep(microseconds);
+
+				// should dynamically increase number of threads
+				printf("Threadnum:%d size of Priority Queue: %lu and value of reached: %d \n",omp_get_thread_num(), pq.size(), reached);
+
+				// cout<<front->x<<" "<<front->y<<" "<<front->h<<endl;
+				// cout<<front->prnt->x<<" "<<front->prnt->y<<endl;
+
+				if( isReached(*front))
 				{
-					// cout<<front->x<<" "<<front->y<<endl;
-					img.at<Vec3b>(front->x, front->y) = Vec3b(255,0,0);
-					front = front->prnt;
-		        }  
-
-				imshow("Path generated", img);
-				waitKey(1);
-				return ;
-			}	
+					printf("***********************Reached**************************\n");
+					// printf("Earlier value of reached:%d \n",reached);
+					reached = true;
+					// printf("Threadnum and Value of reached: %d %d \n",omp_get_thread_num(),reached);
+					usleep(microseconds);
+				}	
 
 
-			for (int i = -connNeighbours/2; i <= connNeighbours/2; ++i)
-				for (int j = -connNeighbours/2; j <= connNeighbours/2; ++j)
-				{
-					if( i==0 && j==0 ) continue; 
-					int nextX,nextY;
-					nextX = front->x + i, nextY = front->y +j;
-					// cout<<nextX<<" "<<nextY<<endl;	
-
-					if( (img.at<Vec3b>(nextX,nextY) != Vec3b(255,255,255))
-						||(nextX<0 || nextX>imgRows ||  nextY<0 || nextY>imgCols) )
-						continue;
-
-					if( visited.at<Vec3b>(nextX,nextY) == Vec3b(0,0,255) )
+				for (int i = -connNeighbours/2; i <= connNeighbours/2; ++i)
+					for (int j = -connNeighbours/2; j <= connNeighbours/2; ++j)
 					{
-						State *next;
-						next = record[nextX][nextY]; 	
+						if( i==0 && j==0 ) continue; 
+						int nextX,nextY;
+						nextX = front->x + i, nextY = front->y +j;
+						// cout<<nextX<<" "<<nextY<<endl;	
 
-						if( next->g > front->g + getCost(*front, *next) )
+						if( (img.at<Vec3b>(nextX,nextY) != Vec3b(255,255,255))
+							||(nextX<0 || nextX>=imgRows ||  nextY<0 || nextY>=imgCols) )
+							continue;
+
+						if( visited.at<Vec3b>(nextX,nextY) == Vec3b(0,0,255) )
 						{
+							State *next;
+							next = record[nextX][nextY]; 	
+
+							if( next->g > front->g + getCost(*front, *next) )
+							{
+								next->g = front->g + getCost(*front, *next);
+								next->h = getHeuristic(*next);
+								next->prnt = front;	
+								// here check if its part of open or not 
+								// if not then add it to open else fine 
+							}
+
+						}
+						else
+						{
+							visited.at<Vec3b>(nextX,nextY) = Vec3b(0,0,255);
+							
+							State *next = new State;
+							next->x = nextX, next->y = nextY;
+							record[next->x][next->y]  = next;
+
 							next->g = front->g + getCost(*front, *next);
 							next->h = getHeuristic(*next);
 							next->prnt = front;	
+
+							pq.push(next);  
 						}
 
 					}
-					else
-					{
-						visited.at<Vec3b>(nextX,nextY) = Vec3b(0,0,255);
-						
-						State *next = new State;
-						next->x = nextX, next->y = nextY;
-						record[next->x][next->y]  = next;
 
-						next->g = front->g + getCost(*front, *next);
-						next->h = getHeuristic(*next);
-						next->prnt = front;	
-
-						pq.push(next);  
-					}
-
+				if (omp_get_thread_num() == 0) 
+				{
+					imshow("Search Tree", visited);
+					imwrite("../visited.jpg",visited);
+					waitKey(10);
 				}
-				
-			imshow("Search Tree", visited);
-			waitKey(1);
 
+				printf("Threadnum %d while loop ended\n",omp_get_thread_num());
+				// #pragma omp barrier
+
+			}
+			printf("Threadnum %d outside while loop\n",omp_get_thread_num());
+		}
+		cout<<"Outside parallel region"<<endl;
+
+		if( reached )
+		{
+
+			State *front = record[end.x][end.y];
+			while( !(front->x == start.x && front->y == start.y ))
+			{
+				// cout<<front->x<<" "<<front->y<<endl;
+				// cout<<front->prnt->x<<" "<<front->prnt->y<<endl;
+
+				img.at<Vec3b>(front->x, front->y) = Vec3b(255,0,0);
+				front = front->prnt;
+	        }  
+
+			imshow("Path generated", img);
+			waitKey(0);
+		}
+		else
+		{
+			cout<<"Path not found"<<endl;
 		}
 
+		for (int i = 0; i < imgRows; ++i)
+			for (int j = 0; j < imgCols; ++j)
+			{
+				if( record[i][j]!=NULL )
+					delete record[i][j];
+			}
+
+		cout<<"Delete Successful"<<endl;
 	}
 
 	double getCost( State curr, State next)
