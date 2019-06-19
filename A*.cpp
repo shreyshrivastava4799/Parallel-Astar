@@ -116,17 +116,13 @@ public:
 				next->g = front->g + getCost(*front, *next);
 				next->h = getHeuristic(*next);
 				next->prnt = front;	
+				
 				// cout<<nextX<<" "<<nextY<<endl;	
 				// cout<<next->prnt->x<<" "<<next->prnt->y<<endl;
-
-
 
 				pq.push(next);  
 			}		
 
-		// at this point K threads should be produced each of which can individually search
-		// and expand nodes
-		// set number of threads and ensure they are maintained 
 		cout<<"Initial size of priority_queue: "<<pq.size()<<endl;
 
 		int totalThreads;
@@ -138,8 +134,7 @@ public:
 
 			while(!pq.empty() && !reached )
 			{
-				// each one of them should pop from same priority queue but there should be no raceing situation 
-				// we can use critical but this has to be avoided majorly
+				
 				State *front = pq.top();
 				pq.pop();
 				closed.at<Vec3b>(front->x,front->y) = Vec3b(0,255,0);
@@ -147,7 +142,7 @@ public:
 				usleep(microseconds);
 				printf("Threadnum:%d size of Priority Queue: %lu : %d %d \n",omp_get_thread_num(), pq.size(), front->x, front->y);
 
-				// cout<<front->x<<" "<<front->y<<" "<<front->h<<endl;
+				// cout<<front->x<<" "<<front->y<<endl;
 				// cout<<front->prnt->x<<" "<<front->prnt->y<<endl;
 
 				if( isReached(*front))
@@ -162,11 +157,10 @@ public:
 					for (int j = -connNeighbours/2; j <= connNeighbours/2; ++j)
 					{
 						if( i==0 && j==0 ) continue; 
+						
 						int nextX,nextY;
 						nextX = front->x + i, nextY = front->y +j;
 						printf("Threadnum:%d: %d %d \n",omp_get_thread_num(), nextX, nextY);
-
-						// cout<<nextX<<" "<<nextY<<endl;	
 
 						if( (img.at<Vec3b>(nextX,nextY) != Vec3b(255,255,255))
 							||(nextX<0 || nextX>=imgRows ||  nextY<0 || nextY>=imgCols) )
@@ -176,7 +170,9 @@ public:
 						{
 							printf("Already visited\n");
 							State *next;
+							printf("Before extracting record\n");
 							next = record[nextX][nextY]; 	
+							printf("After extracting record\n");
 
 							if( next->g > front->g + getCost(*front, *next) )
 							{
@@ -186,8 +182,8 @@ public:
 								
 								if( closed.at<Vec3b>(next->x,next->y) == Vec3b(0,255,0))
 								{
-									printf("Inconsistent states corrected\n");
-									usleep(microseconds*1000);
+									// printf("Inconsistent states corrected\n");
+									usleep(microseconds);
 									pq.push(next);
 								}
 							}
@@ -211,13 +207,13 @@ public:
 
 					}
 
-				if (omp_get_thread_num() == 0) 
-				{
-					imshow("Search Tree", visited);
-					imshow("Closed States", closed);					
-					imwrite("../visited.jpg",visited);
-					waitKey(10);
-				}
+				// if (omp_get_thread_num() == 0) 
+				// {
+				// 	imshow("Search Tree", visited);
+				// 	imshow("Closed States", closed);					
+				// 	imwrite("../visited.jpg",visited);
+				// 	waitKey(10);
+				// }
 				printf("Threadnum %d one loop of while ended\n",omp_get_thread_num());
 
 			}
@@ -238,8 +234,8 @@ public:
 				front = front->prnt;
 	        }  
 	        cout<<"The length of path found: "<<pathLength<<endl;
-			imshow("Path generated", img);
-			waitKey(0);
+			// imshow("Path generated", img);
+			// waitKey(0);
 		}
 		else
 		{
@@ -249,10 +245,10 @@ public:
 		for (int i = 0; i < imgRows; ++i)
 			for (int j = 0; j < imgCols; ++j)
 			{
-				if( record[i][j]!=NULL && (i!=start.x && j!=start.y) || ((i!=end.x && j!=end.y)) )
+				if( record[i][j]!=NULL && !(i==start.x && j==start.y) && !(i==end.x && j==end.y) )
 					delete record[i][j];	
 			}
-			
+
 		cout<<"Delete Successful"<<endl;
 	}
 
