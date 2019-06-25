@@ -5,3 +5,4 @@
 
 
 set( CMAKE_CXX_STANDARD 14 )
+/home/shrey/gym_gazebo/gym_gazebo/envs/installation/catkin_ws/build/gazebo_ros_pkgs

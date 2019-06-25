@@ -1,3 +1,0 @@
-/home/shrey/Planning/A*/CMakeFiles/edit_cache.dir
-/home/shrey/Planning/A*/CMakeFiles/A*.dir
-/home/shrey/Planning/A*/CMakeFiles/rebuild_cache.dir
