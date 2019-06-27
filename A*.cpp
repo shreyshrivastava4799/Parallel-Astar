@@ -9,6 +9,8 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
+#include "tbb/concurrent_priority_queue.h"
+
 using namespace std;
 using namespace cv;
 
@@ -83,7 +85,7 @@ public:
 			for (int j = 0; j < imgCols; ++j)
 				record[i][j] = NULL;
 
-		priority_queue< State*, vector<State*>, stateComparator > pq;
+		tbb::concurrent_priority_queue< State*, stateComparator > pq;
 		start.g = 0;
 		start.h = getHeuristic(start);
 		start.prnt = NULL;
@@ -92,8 +94,10 @@ public:
 		record[start.x][start.y] = &start;
 		visited.at<Vec3b>(start.x,start.y) = Vec3b(0,0,255);
 
-		State *front = pq.top();
-		pq.pop();
+		State *front;  
+		bool popSuccesful = pq.try_pop(front);
+		cout<<"popSuccesful: "<<popSuccesful<<endl;
+		// pq.pop();
 		closed.at<Vec3b>(front->x,front->y) = Vec3b(0,255,0);
 
 		for (int i = -connNeighbours/2; i <= connNeighbours/2; ++i)
@@ -124,7 +128,7 @@ public:
 				pq.push(next);  
 			}		
 
-		cout<<"Initial size of priority_queue: "<<pq.size()<<endl;
+		// cout<<"Initial size of priority_queue: "<<pq.size()<<endl;
 
 		int totalThreads;
 		#pragma omp parallel shared(reached)
@@ -136,12 +140,12 @@ public:
 			while(!pq.empty() && !reached )
 			{
 				
-				State *front = pq.top();
-				pq.pop();
+				State *front;  
+				bool popSuccesful = pq.try_pop(front);
 				closed.at<Vec3b>(front->x,front->y) = Vec3b(0,255,0);
 
 				usleep(microseconds);
-				printf("Threadnum:%d size of Priority Queue: %lu : %d %d \n",omp_get_thread_num(), pq.size(), front->x, front->y);
+				// printf("Threadnum:%d size of Priority Queue: %lu : %d %d \n",omp_get_thread_num(), pq.size(), front->x, front->y);
 
 				// cout<<front->x<<" "<<front->y<<endl;
 				// cout<<front->prnt->x<<" "<<front->prnt->y<<endl;
@@ -235,8 +239,8 @@ public:
 				front = front->prnt;
 	        }  
 	        cout<<"The length of path found: "<<pathLength<<endl;
-			// imshow("Path generated", img);
-			// waitKey(0);
+			imshow("Path generated", img);
+			waitKey(0);
 		}
 		else
 		{

@@ -1,0 +1,1 @@
+/usr/bin/c++   -mrtm -std=c++11  -O3 -DNDEBUG   CMakeFiles/tbb_test_aggregator.dir/src/test/test_aggregator.cpp.o  -o tbb_test_aggregator -rdynamic libtbb.so libtbbmalloc.so -lrt -ldl -lpthread -lpthread -ldl -Wl,-rpath,"/home/shrey/Planning/A*/build/tbb" 

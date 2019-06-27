@@ -1,0 +1,1 @@
+/usr/bin/c++   -mrtm -std=c++11  -O3 -DNDEBUG   CMakeFiles/tbb_test_cilk_dynamic_load.dir/src/test/test_cilk_dynamic_load.cpp.o  -o tbb_test_cilk_dynamic_load -rdynamic libtbb.so libtbbmalloc.so -lrt -ldl -lpthread -lpthread -ldl -Wl,-rpath,"/home/shrey/Planning/A*/build/tbb" 

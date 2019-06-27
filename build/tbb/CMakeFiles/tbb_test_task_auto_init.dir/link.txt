@@ -1,0 +1,1 @@
+/usr/bin/c++   -mrtm -std=c++11  -O3 -DNDEBUG   CMakeFiles/tbb_test_task_auto_init.dir/src/test/test_task_auto_init.cpp.o  -o tbb_test_task_auto_init -rdynamic libtbb.so libtbbmalloc.so -lrt -ldl -lpthread -lpthread -ldl -Wl,-rpath,"/home/shrey/Planning/A*/build/tbb" 

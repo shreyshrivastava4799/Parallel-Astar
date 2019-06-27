@@ -1,0 +1,1 @@
+/usr/bin/c++   -mrtm -std=c++11  -O3 -DNDEBUG   CMakeFiles/tbb_test_flow_graph_whitebox.dir/src/test/test_flow_graph_whitebox.cpp.o  -o tbb_test_flow_graph_whitebox -rdynamic libtbb.so libtbbmalloc.so -lrt -ldl -lpthread -lpthread -ldl -Wl,-rpath,"/home/shrey/Planning/A*/build/tbb" 

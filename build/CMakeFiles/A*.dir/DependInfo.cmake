@@ -13,10 +13,12 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "/opt/ros/kinetic/include/opencv-3.3.1-dev"
   "/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv"
+  "../tbb/include"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/shrey/Planning/A*/build/tbb/CMakeFiles/tbb.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

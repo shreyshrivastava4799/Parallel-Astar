@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -mrtm -std=c++11  -O3 -DNDEBUG  -shared -Wl,-soname,libtbbmalloc_proxy.so -o libtbbmalloc_proxy.so CMakeFiles/tbbmalloc_proxy.dir/src/tbbmalloc/proxy.cpp.o CMakeFiles/tbbmalloc_proxy.dir/src/tbbmalloc/tbb_function_replacement.cpp.o libtbbmalloc.so -lpthread -ldl -Wl,-rpath,"/home/shrey/Planning/A*/build/tbb:" 

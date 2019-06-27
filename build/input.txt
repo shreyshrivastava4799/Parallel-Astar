@@ -1,8 +1,6 @@
-/home/shrey/Planning/A*/curved_obstacle.png
+/home/shrey/Planning/A*/curved_obstacle_1.png
 2.0
 100 100
-250 490
+100 190
 
 
-set( CMAKE_CXX_STANDARD 14 )
-/home/shrey/gym_gazebo/gym_gazebo/envs/installation/catkin_ws/build/gazebo_ros_pkgs

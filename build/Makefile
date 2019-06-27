@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = "/home/shrey/Planning/A*/build"
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,6 +66,61 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+
+.PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+
+.PHONY : install/local/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -123,6 +167,1124 @@ A*/fast:
 	$(MAKE) -f "CMakeFiles/A*.dir/build.make" "CMakeFiles/A*.dir/build"
 .PHONY : A*/fast
 
+#=============================================================================
+# Target rules for targets named tbb_test_yield
+
+# Build rule for target.
+tbb_test_yield: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_yield
+.PHONY : tbb_test_yield
+
+# fast build rule for target.
+tbb_test_yield/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_yield.dir/build.make tbb/CMakeFiles/tbb_test_yield.dir/build
+.PHONY : tbb_test_yield/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_tuple
+
+# Build rule for target.
+tbb_test_tuple: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_tuple
+.PHONY : tbb_test_tuple
+
+# fast build rule for target.
+tbb_test_tuple/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_tuple.dir/build.make tbb/CMakeFiles/tbb_test_tuple.dir/build
+.PHONY : tbb_test_tuple/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_tbb_thread
+
+# Build rule for target.
+tbb_test_tbb_thread: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_tbb_thread
+.PHONY : tbb_test_tbb_thread
+
+# fast build rule for target.
+tbb_test_tbb_thread/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_tbb_thread.dir/build.make tbb/CMakeFiles/tbb_test_tbb_thread.dir/build
+.PHONY : tbb_test_tbb_thread/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_tbb_fork
+
+# Build rule for target.
+tbb_test_tbb_fork: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_tbb_fork
+.PHONY : tbb_test_tbb_fork
+
+# fast build rule for target.
+tbb_test_tbb_fork/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_tbb_fork.dir/build.make tbb/CMakeFiles/tbb_test_tbb_fork.dir/build
+.PHONY : tbb_test_tbb_fork/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_tbb_condition_variable
+
+# Build rule for target.
+tbb_test_tbb_condition_variable: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_tbb_condition_variable
+.PHONY : tbb_test_tbb_condition_variable
+
+# fast build rule for target.
+tbb_test_tbb_condition_variable/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_tbb_condition_variable.dir/build.make tbb/CMakeFiles/tbb_test_tbb_condition_variable.dir/build
+.PHONY : tbb_test_tbb_condition_variable/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_task_scheduler_observer
+
+# Build rule for target.
+tbb_test_task_scheduler_observer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_task_scheduler_observer
+.PHONY : tbb_test_task_scheduler_observer
+
+# fast build rule for target.
+tbb_test_task_scheduler_observer/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_task_scheduler_observer.dir/build.make tbb/CMakeFiles/tbb_test_task_scheduler_observer.dir/build
+.PHONY : tbb_test_task_scheduler_observer/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_cache_aligned_allocator_STL
+
+# Build rule for target.
+tbb_test_cache_aligned_allocator_STL: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_cache_aligned_allocator_STL
+.PHONY : tbb_test_cache_aligned_allocator_STL
+
+# fast build rule for target.
+tbb_test_cache_aligned_allocator_STL/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_cache_aligned_allocator_STL.dir/build.make tbb/CMakeFiles/tbb_test_cache_aligned_allocator_STL.dir/build
+.PHONY : tbb_test_cache_aligned_allocator_STL/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_priority_queue_node
+
+# Build rule for target.
+tbb_test_priority_queue_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_priority_queue_node
+.PHONY : tbb_test_priority_queue_node
+
+# fast build rule for target.
+tbb_test_priority_queue_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_priority_queue_node.dir/build.make tbb/CMakeFiles/tbb_test_priority_queue_node.dir/build
+.PHONY : tbb_test_priority_queue_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_concurrent_vector
+
+# Build rule for target.
+tbb_test_concurrent_vector: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_concurrent_vector
+.PHONY : tbb_test_concurrent_vector
+
+# fast build rule for target.
+tbb_test_concurrent_vector/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_concurrent_vector.dir/build.make tbb/CMakeFiles/tbb_test_concurrent_vector.dir/build
+.PHONY : tbb_test_concurrent_vector/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_concurrent_unordered_map
+
+# Build rule for target.
+tbb_test_concurrent_unordered_map: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_concurrent_unordered_map
+.PHONY : tbb_test_concurrent_unordered_map
+
+# fast build rule for target.
+tbb_test_concurrent_unordered_map/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_concurrent_unordered_map.dir/build.make tbb/CMakeFiles/tbb_test_concurrent_unordered_map.dir/build
+.PHONY : tbb_test_concurrent_unordered_map/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_ittnotify
+
+# Build rule for target.
+tbb_test_ittnotify: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_ittnotify
+.PHONY : tbb_test_ittnotify
+
+# fast build rule for target.
+tbb_test_ittnotify/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_ittnotify.dir/build.make tbb/CMakeFiles/tbb_test_ittnotify.dir/build
+.PHONY : tbb_test_ittnotify/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_malloc_compliance
+
+# Build rule for target.
+tbb_test_malloc_compliance: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_malloc_compliance
+.PHONY : tbb_test_malloc_compliance
+
+# fast build rule for target.
+tbb_test_malloc_compliance/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_malloc_compliance.dir/build.make tbb/CMakeFiles/tbb_test_malloc_compliance.dir/build
+.PHONY : tbb_test_malloc_compliance/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_concurrent_lru_cache
+
+# Build rule for target.
+tbb_test_concurrent_lru_cache: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_concurrent_lru_cache
+.PHONY : tbb_test_concurrent_lru_cache
+
+# fast build rule for target.
+tbb_test_concurrent_lru_cache/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_concurrent_lru_cache.dir/build.make tbb/CMakeFiles/tbb_test_concurrent_lru_cache.dir/build
+.PHONY : tbb_test_concurrent_lru_cache/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_buffer_node
+
+# Build rule for target.
+tbb_test_buffer_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_buffer_node
+.PHONY : tbb_test_buffer_node
+
+# fast build rule for target.
+tbb_test_buffer_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_buffer_node.dir/build.make tbb/CMakeFiles/tbb_test_buffer_node.dir/build
+.PHONY : tbb_test_buffer_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_parallel_reduce
+
+# Build rule for target.
+tbb_test_parallel_reduce: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_parallel_reduce
+.PHONY : tbb_test_parallel_reduce
+
+# fast build rule for target.
+tbb_test_parallel_reduce/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_parallel_reduce.dir/build.make tbb/CMakeFiles/tbb_test_parallel_reduce.dir/build
+.PHONY : tbb_test_parallel_reduce/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_composite_node
+
+# Build rule for target.
+tbb_test_composite_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_composite_node
+.PHONY : tbb_test_composite_node
+
+# fast build rule for target.
+tbb_test_composite_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_composite_node.dir/build.make tbb/CMakeFiles/tbb_test_composite_node.dir/build
+.PHONY : tbb_test_composite_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_write_once_node
+
+# Build rule for target.
+tbb_test_write_once_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_write_once_node
+.PHONY : tbb_test_write_once_node
+
+# fast build rule for target.
+tbb_test_write_once_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_write_once_node.dir/build.make tbb/CMakeFiles/tbb_test_write_once_node.dir/build
+.PHONY : tbb_test_write_once_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_combinable
+
+# Build rule for target.
+tbb_test_combinable: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_combinable
+.PHONY : tbb_test_combinable
+
+# fast build rule for target.
+tbb_test_combinable/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_combinable.dir/build.make tbb/CMakeFiles/tbb_test_combinable.dir/build
+.PHONY : tbb_test_combinable/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_reader_writer_lock
+
+# Build rule for target.
+tbb_test_reader_writer_lock: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_reader_writer_lock
+.PHONY : tbb_test_reader_writer_lock
+
+# fast build rule for target.
+tbb_test_reader_writer_lock/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_reader_writer_lock.dir/build.make tbb/CMakeFiles/tbb_test_reader_writer_lock.dir/build
+.PHONY : tbb_test_reader_writer_lock/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_cache_aligned_allocator
+
+# Build rule for target.
+tbb_test_cache_aligned_allocator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_cache_aligned_allocator
+.PHONY : tbb_test_cache_aligned_allocator
+
+# fast build rule for target.
+tbb_test_cache_aligned_allocator/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_cache_aligned_allocator.dir/build.make tbb/CMakeFiles/tbb_test_cache_aligned_allocator.dir/build
+.PHONY : tbb_test_cache_aligned_allocator/fast
+
+#=============================================================================
+# Target rules for targets named tbbmalloc
+
+# Build rule for target.
+tbbmalloc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbbmalloc
+.PHONY : tbbmalloc
+
+# fast build rule for target.
+tbbmalloc/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbbmalloc.dir/build.make tbb/CMakeFiles/tbbmalloc.dir/build
+.PHONY : tbbmalloc/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_indexer_node
+
+# Build rule for target.
+tbb_test_indexer_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_indexer_node
+.PHONY : tbb_test_indexer_node
+
+# fast build rule for target.
+tbb_test_indexer_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_indexer_node.dir/build.make tbb/CMakeFiles/tbb_test_indexer_node.dir/build
+.PHONY : tbb_test_indexer_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_blocked_range3d
+
+# Build rule for target.
+tbb_test_blocked_range3d: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_blocked_range3d
+.PHONY : tbb_test_blocked_range3d
+
+# fast build rule for target.
+tbb_test_blocked_range3d/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_blocked_range3d.dir/build.make tbb/CMakeFiles/tbb_test_blocked_range3d.dir/build
+.PHONY : tbb_test_blocked_range3d/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_concurrent_hash_map
+
+# Build rule for target.
+tbb_test_concurrent_hash_map: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_concurrent_hash_map
+.PHONY : tbb_test_concurrent_hash_map
+
+# fast build rule for target.
+tbb_test_concurrent_hash_map/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_concurrent_hash_map.dir/build.make tbb/CMakeFiles/tbb_test_concurrent_hash_map.dir/build
+.PHONY : tbb_test_concurrent_hash_map/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_aggregator
+
+# Build rule for target.
+tbb_test_aggregator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_aggregator
+.PHONY : tbb_test_aggregator
+
+# fast build rule for target.
+tbb_test_aggregator/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_aggregator.dir/build.make tbb/CMakeFiles/tbb_test_aggregator.dir/build
+.PHONY : tbb_test_aggregator/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_flow_graph_whitebox
+
+# Build rule for target.
+tbb_test_flow_graph_whitebox: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_flow_graph_whitebox
+.PHONY : tbb_test_flow_graph_whitebox
+
+# fast build rule for target.
+tbb_test_flow_graph_whitebox/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_flow_graph_whitebox.dir/build.make tbb/CMakeFiles/tbb_test_flow_graph_whitebox.dir/build
+.PHONY : tbb_test_flow_graph_whitebox/fast
+
+#=============================================================================
+# Target rules for targets named tbb_static
+
+# Build rule for target.
+tbb_static: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_static
+.PHONY : tbb_static
+
+# fast build rule for target.
+tbb_static/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_static.dir/build.make tbb/CMakeFiles/tbb_static.dir/build
+.PHONY : tbb_static/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_cilk_interop
+
+# Build rule for target.
+tbb_test_cilk_interop: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_cilk_interop
+.PHONY : tbb_test_cilk_interop
+
+# fast build rule for target.
+tbb_test_cilk_interop/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_cilk_interop.dir/build.make tbb/CMakeFiles/tbb_test_cilk_interop.dir/build
+.PHONY : tbb_test_cilk_interop/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_blocked_range2d
+
+# Build rule for target.
+tbb_test_blocked_range2d: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_blocked_range2d
+.PHONY : tbb_test_blocked_range2d
+
+# fast build rule for target.
+tbb_test_blocked_range2d/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_blocked_range2d.dir/build.make tbb/CMakeFiles/tbb_test_blocked_range2d.dir/build
+.PHONY : tbb_test_blocked_range2d/fast
+
+#=============================================================================
+# Target rules for targets named tbbmalloc_proxy
+
+# Build rule for target.
+tbbmalloc_proxy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbbmalloc_proxy
+.PHONY : tbbmalloc_proxy
+
+# fast build rule for target.
+tbbmalloc_proxy/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbbmalloc_proxy.dir/build.make tbb/CMakeFiles/tbbmalloc_proxy.dir/build
+.PHONY : tbbmalloc_proxy/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_parallel_while
+
+# Build rule for target.
+tbb_test_parallel_while: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_parallel_while
+.PHONY : tbb_test_parallel_while
+
+# fast build rule for target.
+tbb_test_parallel_while/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_parallel_while.dir/build.make tbb/CMakeFiles/tbb_test_parallel_while.dir/build
+.PHONY : tbb_test_parallel_while/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_aligned_space
+
+# Build rule for target.
+tbb_test_aligned_space: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_aligned_space
+.PHONY : tbb_test_aligned_space
+
+# fast build rule for target.
+tbb_test_aligned_space/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_aligned_space.dir/build.make tbb/CMakeFiles/tbb_test_aligned_space.dir/build
+.PHONY : tbb_test_aligned_space/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_enumerable_thread_specific
+
+# Build rule for target.
+tbb_test_enumerable_thread_specific: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_enumerable_thread_specific
+.PHONY : tbb_test_enumerable_thread_specific
+
+# fast build rule for target.
+tbb_test_enumerable_thread_specific/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_enumerable_thread_specific.dir/build.make tbb/CMakeFiles/tbb_test_enumerable_thread_specific.dir/build
+.PHONY : tbb_test_enumerable_thread_specific/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_parallel_for_vectorization
+
+# Build rule for target.
+tbb_test_parallel_for_vectorization: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_parallel_for_vectorization
+.PHONY : tbb_test_parallel_for_vectorization
+
+# fast build rule for target.
+tbb_test_parallel_for_vectorization/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_parallel_for_vectorization.dir/build.make tbb/CMakeFiles/tbb_test_parallel_for_vectorization.dir/build
+.PHONY : tbb_test_parallel_for_vectorization/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_parallel_sort
+
+# Build rule for target.
+tbb_test_parallel_sort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_parallel_sort
+.PHONY : tbb_test_parallel_sort
+
+# fast build rule for target.
+tbb_test_parallel_sort/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_parallel_sort.dir/build.make tbb/CMakeFiles/tbb_test_parallel_sort.dir/build
+.PHONY : tbb_test_parallel_sort/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_flow_graph
+
+# Build rule for target.
+tbb_test_flow_graph: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_flow_graph
+.PHONY : tbb_test_flow_graph
+
+# fast build rule for target.
+tbb_test_flow_graph/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_flow_graph.dir/build.make tbb/CMakeFiles/tbb_test_flow_graph.dir/build
+.PHONY : tbb_test_flow_graph/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_examples_common_utility
+
+# Build rule for target.
+tbb_test_examples_common_utility: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_examples_common_utility
+.PHONY : tbb_test_examples_common_utility
+
+# fast build rule for target.
+tbb_test_examples_common_utility/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_examples_common_utility.dir/build.make tbb/CMakeFiles/tbb_test_examples_common_utility.dir/build
+.PHONY : tbb_test_examples_common_utility/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_model_plugin
+
+# Build rule for target.
+tbb_test_model_plugin: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_model_plugin
+.PHONY : tbb_test_model_plugin
+
+# fast build rule for target.
+tbb_test_model_plugin/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_model_plugin.dir/build.make tbb/CMakeFiles/tbb_test_model_plugin.dir/build
+.PHONY : tbb_test_model_plugin/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_mutex_native_threads
+
+# Build rule for target.
+tbb_test_mutex_native_threads: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_mutex_native_threads
+.PHONY : tbb_test_mutex_native_threads
+
+# fast build rule for target.
+tbb_test_mutex_native_threads/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_mutex_native_threads.dir/build.make tbb/CMakeFiles/tbb_test_mutex_native_threads.dir/build
+.PHONY : tbb_test_mutex_native_threads/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_limiter_node
+
+# Build rule for target.
+tbb_test_limiter_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_limiter_node
+.PHONY : tbb_test_limiter_node
+
+# fast build rule for target.
+tbb_test_limiter_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_limiter_node.dir/build.make tbb/CMakeFiles/tbb_test_limiter_node.dir/build
+.PHONY : tbb_test_limiter_node/fast
+
+#=============================================================================
+# Target rules for targets named tbbmalloc_static
+
+# Build rule for target.
+tbbmalloc_static: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbbmalloc_static
+.PHONY : tbbmalloc_static
+
+# fast build rule for target.
+tbbmalloc_static/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbbmalloc_static.dir/build.make tbb/CMakeFiles/tbbmalloc_static.dir/build
+.PHONY : tbbmalloc_static/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_intrusive_list
+
+# Build rule for target.
+tbb_test_intrusive_list: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_intrusive_list
+.PHONY : tbb_test_intrusive_list
+
+# fast build rule for target.
+tbb_test_intrusive_list/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_intrusive_list.dir/build.make tbb/CMakeFiles/tbb_test_intrusive_list.dir/build
+.PHONY : tbb_test_intrusive_list/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_concurrent_queue
+
+# Build rule for target.
+tbb_test_concurrent_queue: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_concurrent_queue
+.PHONY : tbb_test_concurrent_queue
+
+# fast build rule for target.
+tbb_test_concurrent_queue/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_concurrent_queue.dir/build.make tbb/CMakeFiles/tbb_test_concurrent_queue.dir/build
+.PHONY : tbb_test_concurrent_queue/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_assembly
+
+# Build rule for target.
+tbb_test_assembly: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_assembly
+.PHONY : tbb_test_assembly
+
+# fast build rule for target.
+tbb_test_assembly/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_assembly.dir/build.make tbb/CMakeFiles/tbb_test_assembly.dir/build
+.PHONY : tbb_test_assembly/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_cilk_dynamic_load
+
+# Build rule for target.
+tbb_test_cilk_dynamic_load: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_cilk_dynamic_load
+.PHONY : tbb_test_cilk_dynamic_load
+
+# fast build rule for target.
+tbb_test_cilk_dynamic_load/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_cilk_dynamic_load.dir/build.make tbb/CMakeFiles/tbb_test_cilk_dynamic_load.dir/build
+.PHONY : tbb_test_cilk_dynamic_load/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_malloc_init_shutdown
+
+# Build rule for target.
+tbb_test_malloc_init_shutdown: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_malloc_init_shutdown
+.PHONY : tbb_test_malloc_init_shutdown
+
+# fast build rule for target.
+tbb_test_malloc_init_shutdown/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_malloc_init_shutdown.dir/build.make tbb/CMakeFiles/tbb_test_malloc_init_shutdown.dir/build
+.PHONY : tbb_test_malloc_init_shutdown/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_broadcast_node
+
+# Build rule for target.
+tbb_test_broadcast_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_broadcast_node
+.PHONY : tbb_test_broadcast_node
+
+# fast build rule for target.
+tbb_test_broadcast_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_broadcast_node.dir/build.make tbb/CMakeFiles/tbb_test_broadcast_node.dir/build
+.PHONY : tbb_test_broadcast_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_tick_count
+
+# Build rule for target.
+tbb_test_tick_count: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_tick_count
+.PHONY : tbb_test_tick_count
+
+# fast build rule for target.
+tbb_test_tick_count/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_tick_count.dir/build.make tbb/CMakeFiles/tbb_test_tick_count.dir/build
+.PHONY : tbb_test_tick_count/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_async_node
+
+# Build rule for target.
+tbb_test_async_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_async_node
+.PHONY : tbb_test_async_node
+
+# fast build rule for target.
+tbb_test_async_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_async_node.dir/build.make tbb/CMakeFiles/tbb_test_async_node.dir/build
+.PHONY : tbb_test_async_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_critical_section
+
+# Build rule for target.
+tbb_test_critical_section: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_critical_section
+.PHONY : tbb_test_critical_section
+
+# fast build rule for target.
+tbb_test_critical_section/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_critical_section.dir/build.make tbb/CMakeFiles/tbb_test_critical_section.dir/build
+.PHONY : tbb_test_critical_section/fast
+
+#=============================================================================
+# Target rules for targets named tbbmalloc_proxy_static
+
+# Build rule for target.
+tbbmalloc_proxy_static: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbbmalloc_proxy_static
+.PHONY : tbbmalloc_proxy_static
+
+# fast build rule for target.
+tbbmalloc_proxy_static/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbbmalloc_proxy_static.dir/build.make tbb/CMakeFiles/tbbmalloc_proxy_static.dir/build
+.PHONY : tbbmalloc_proxy_static/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_parallel_invoke
+
+# Build rule for target.
+tbb_test_parallel_invoke: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_parallel_invoke
+.PHONY : tbb_test_parallel_invoke
+
+# fast build rule for target.
+tbb_test_parallel_invoke/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_parallel_invoke.dir/build.make tbb/CMakeFiles/tbb_test_parallel_invoke.dir/build
+.PHONY : tbb_test_parallel_invoke/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_source_node
+
+# Build rule for target.
+tbb_test_source_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_source_node
+.PHONY : tbb_test_source_node
+
+# fast build rule for target.
+tbb_test_source_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_source_node.dir/build.make tbb/CMakeFiles/tbb_test_source_node.dir/build
+.PHONY : tbb_test_source_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_blocked_range
+
+# Build rule for target.
+tbb_test_blocked_range: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_blocked_range
+.PHONY : tbb_test_blocked_range
+
+# fast build rule for target.
+tbb_test_blocked_range/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_blocked_range.dir/build.make tbb/CMakeFiles/tbb_test_blocked_range.dir/build
+.PHONY : tbb_test_blocked_range/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_halt
+
+# Build rule for target.
+tbb_test_halt: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_halt
+.PHONY : tbb_test_halt
+
+# fast build rule for target.
+tbb_test_halt/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_halt.dir/build.make tbb/CMakeFiles/tbb_test_halt.dir/build
+.PHONY : tbb_test_halt/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_handle_perror
+
+# Build rule for target.
+tbb_test_handle_perror: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_handle_perror
+.PHONY : tbb_test_handle_perror
+
+# fast build rule for target.
+tbb_test_handle_perror/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_handle_perror.dir/build.make tbb/CMakeFiles/tbb_test_handle_perror.dir/build
+.PHONY : tbb_test_handle_perror/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_inits_loop
+
+# Build rule for target.
+tbb_test_inits_loop: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_inits_loop
+.PHONY : tbb_test_inits_loop
+
+# fast build rule for target.
+tbb_test_inits_loop/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_inits_loop.dir/build.make tbb/CMakeFiles/tbb_test_inits_loop.dir/build
+.PHONY : tbb_test_inits_loop/fast
+
+#=============================================================================
+# Target rules for targets named tbb_def_files
+
+# Build rule for target.
+tbb_def_files: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_def_files
+.PHONY : tbb_def_files
+
+# fast build rule for target.
+tbb_def_files/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_def_files.dir/build.make tbb/CMakeFiles/tbb_def_files.dir/build
+.PHONY : tbb_def_files/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_tagged_msg
+
+# Build rule for target.
+tbb_test_tagged_msg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_tagged_msg
+.PHONY : tbb_test_tagged_msg
+
+# fast build rule for target.
+tbb_test_tagged_msg/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_tagged_msg.dir/build.make tbb/CMakeFiles/tbb_test_tagged_msg.dir/build
+.PHONY : tbb_test_tagged_msg/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_malloc_pools
+
+# Build rule for target.
+tbb_test_malloc_pools: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_malloc_pools
+.PHONY : tbb_test_malloc_pools
+
+# fast build rule for target.
+tbb_test_malloc_pools/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_malloc_pools.dir/build.make tbb/CMakeFiles/tbb_test_malloc_pools.dir/build
+.PHONY : tbb_test_malloc_pools/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_task_steal_limit
+
+# Build rule for target.
+tbb_test_task_steal_limit: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_task_steal_limit
+.PHONY : tbb_test_task_steal_limit
+
+# fast build rule for target.
+tbb_test_task_steal_limit/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_task_steal_limit.dir/build.make tbb/CMakeFiles/tbb_test_task_steal_limit.dir/build
+.PHONY : tbb_test_task_steal_limit/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_static_assert
+
+# Build rule for target.
+tbb_test_static_assert: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_static_assert
+.PHONY : tbb_test_static_assert
+
+# fast build rule for target.
+tbb_test_static_assert/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_static_assert.dir/build.make tbb/CMakeFiles/tbb_test_static_assert.dir/build
+.PHONY : tbb_test_static_assert/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_lambda
+
+# Build rule for target.
+tbb_test_lambda: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_lambda
+.PHONY : tbb_test_lambda
+
+# fast build rule for target.
+tbb_test_lambda/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_lambda.dir/build.make tbb/CMakeFiles/tbb_test_lambda.dir/build
+.PHONY : tbb_test_lambda/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_mutex
+
+# Build rule for target.
+tbb_test_mutex: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_mutex
+.PHONY : tbb_test_mutex
+
+# fast build rule for target.
+tbb_test_mutex/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_mutex.dir/build.make tbb/CMakeFiles/tbb_test_mutex.dir/build
+.PHONY : tbb_test_mutex/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_malloc_regression
+
+# Build rule for target.
+tbb_test_malloc_regression: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_malloc_regression
+.PHONY : tbb_test_malloc_regression
+
+# fast build rule for target.
+tbb_test_malloc_regression/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_malloc_regression.dir/build.make tbb/CMakeFiles/tbb_test_malloc_regression.dir/build
+.PHONY : tbb_test_malloc_regression/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_overwrite_node
+
+# Build rule for target.
+tbb_test_overwrite_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_overwrite_node
+.PHONY : tbb_test_overwrite_node
+
+# fast build rule for target.
+tbb_test_overwrite_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_overwrite_node.dir/build.make tbb/CMakeFiles/tbb_test_overwrite_node.dir/build
+.PHONY : tbb_test_overwrite_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_openmp
+
+# Build rule for target.
+tbb_test_openmp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_openmp
+.PHONY : tbb_test_openmp
+
+# fast build rule for target.
+tbb_test_openmp/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_openmp.dir/build.make tbb/CMakeFiles/tbb_test_openmp.dir/build
+.PHONY : tbb_test_openmp/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_ScalableAllocator_STL
+
+# Build rule for target.
+tbb_test_ScalableAllocator_STL: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_ScalableAllocator_STL
+.PHONY : tbb_test_ScalableAllocator_STL
+
+# fast build rule for target.
+tbb_test_ScalableAllocator_STL/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_ScalableAllocator_STL.dir/build.make tbb/CMakeFiles/tbb_test_ScalableAllocator_STL.dir/build
+.PHONY : tbb_test_ScalableAllocator_STL/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_parallel_for
+
+# Build rule for target.
+tbb_test_parallel_for: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_parallel_for
+.PHONY : tbb_test_parallel_for
+
+# fast build rule for target.
+tbb_test_parallel_for/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_parallel_for.dir/build.make tbb/CMakeFiles/tbb_test_parallel_for.dir/build
+.PHONY : tbb_test_parallel_for/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_eh_flow_graph
+
+# Build rule for target.
+tbb_test_eh_flow_graph: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_eh_flow_graph
+.PHONY : tbb_test_eh_flow_graph
+
+# fast build rule for target.
+tbb_test_eh_flow_graph/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_eh_flow_graph.dir/build.make tbb/CMakeFiles/tbb_test_eh_flow_graph.dir/build
+.PHONY : tbb_test_eh_flow_graph/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_parallel_for_each
+
+# Build rule for target.
+tbb_test_parallel_for_each: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_parallel_for_each
+.PHONY : tbb_test_parallel_for_each
+
+# fast build rule for target.
+tbb_test_parallel_for_each/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_parallel_for_each.dir/build.make tbb/CMakeFiles/tbb_test_parallel_for_each.dir/build
+.PHONY : tbb_test_parallel_for_each/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_parallel_pipeline
+
+# Build rule for target.
+tbb_test_parallel_pipeline: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_parallel_pipeline
+.PHONY : tbb_test_parallel_pipeline
+
+# fast build rule for target.
+tbb_test_parallel_pipeline/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_parallel_pipeline.dir/build.make tbb/CMakeFiles/tbb_test_parallel_pipeline.dir/build
+.PHONY : tbb_test_parallel_pipeline/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_continue_node
+
+# Build rule for target.
+tbb_test_continue_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_continue_node
+.PHONY : tbb_test_continue_node
+
+# fast build rule for target.
+tbb_test_continue_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_continue_node.dir/build.make tbb/CMakeFiles/tbb_test_continue_node.dir/build
+.PHONY : tbb_test_continue_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_pipeline
+
+# Build rule for target.
+tbb_test_pipeline: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_pipeline
+.PHONY : tbb_test_pipeline
+
+# fast build rule for target.
+tbb_test_pipeline/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_pipeline.dir/build.make tbb/CMakeFiles/tbb_test_pipeline.dir/build
+.PHONY : tbb_test_pipeline/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_rwm_upgrade_downgrade
+
+# Build rule for target.
+tbb_test_rwm_upgrade_downgrade: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_rwm_upgrade_downgrade
+.PHONY : tbb_test_rwm_upgrade_downgrade
+
+# fast build rule for target.
+tbb_test_rwm_upgrade_downgrade/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_rwm_upgrade_downgrade.dir/build.make tbb/CMakeFiles/tbb_test_rwm_upgrade_downgrade.dir/build
+.PHONY : tbb_test_rwm_upgrade_downgrade/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_queue_node
+
+# Build rule for target.
+tbb_test_queue_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_queue_node
+.PHONY : tbb_test_queue_node
+
+# fast build rule for target.
+tbb_test_queue_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_queue_node.dir/build.make tbb/CMakeFiles/tbb_test_queue_node.dir/build
+.PHONY : tbb_test_queue_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_semaphore
+
+# Build rule for target.
+tbb_test_semaphore: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_semaphore
+.PHONY : tbb_test_semaphore
+
+# fast build rule for target.
+tbb_test_semaphore/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_semaphore.dir/build.make tbb/CMakeFiles/tbb_test_semaphore.dir/build
+.PHONY : tbb_test_semaphore/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_async_msg
+
+# Build rule for target.
+tbb_test_async_msg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_async_msg
+.PHONY : tbb_test_async_msg
+
+# fast build rule for target.
+tbb_test_async_msg/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_async_msg.dir/build.make tbb/CMakeFiles/tbb_test_async_msg.dir/build
+.PHONY : tbb_test_async_msg/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_task
+
+# Build rule for target.
+tbb_test_task: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_task
+.PHONY : tbb_test_task
+
+# fast build rule for target.
+tbb_test_task/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_task.dir/build.make tbb/CMakeFiles/tbb_test_task.dir/build
+.PHONY : tbb_test_task/fast
+
+#=============================================================================
+# Target rules for targets named tbb
+
+# Build rule for target.
+tbb: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb
+.PHONY : tbb
+
+# fast build rule for target.
+tbb/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb.dir/build.make tbb/CMakeFiles/tbb.dir/build
+.PHONY : tbb/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_task_group
+
+# Build rule for target.
+tbb_test_task_group: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_task_group
+.PHONY : tbb_test_task_group
+
+# fast build rule for target.
+tbb_test_task_group/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_task_group.dir/build.make tbb/CMakeFiles/tbb_test_task_group.dir/build
+.PHONY : tbb_test_task_group/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_split_node
+
+# Build rule for target.
+tbb_test_split_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_split_node
+.PHONY : tbb_test_split_node
+
+# fast build rule for target.
+tbb_test_split_node/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_split_node.dir/build.make tbb/CMakeFiles/tbb_test_split_node.dir/build
+.PHONY : tbb_test_split_node/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_parallel_scan
+
+# Build rule for target.
+tbb_test_parallel_scan: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_parallel_scan
+.PHONY : tbb_test_parallel_scan
+
+# fast build rule for target.
+tbb_test_parallel_scan/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_parallel_scan.dir/build.make tbb/CMakeFiles/tbb_test_parallel_scan.dir/build
+.PHONY : tbb_test_parallel_scan/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_std_thread
+
+# Build rule for target.
+tbb_test_std_thread: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_std_thread
+.PHONY : tbb_test_std_thread
+
+# fast build rule for target.
+tbb_test_std_thread/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_std_thread.dir/build.make tbb/CMakeFiles/tbb_test_std_thread.dir/build
+.PHONY : tbb_test_std_thread/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_dynamic_link
+
+# Build rule for target.
+tbb_test_dynamic_link: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_dynamic_link
+.PHONY : tbb_test_dynamic_link
+
+# fast build rule for target.
+tbb_test_dynamic_link/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_dynamic_link.dir/build.make tbb/CMakeFiles/tbb_test_dynamic_link.dir/build
+.PHONY : tbb_test_dynamic_link/fast
+
+#=============================================================================
+# Target rules for targets named tbb_test_task_auto_init
+
+# Build rule for target.
+tbb_test_task_auto_init: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tbb_test_task_auto_init
+.PHONY : tbb_test_task_auto_init
+
+# fast build rule for target.
+tbb_test_task_auto_init/fast:
+	$(MAKE) -f tbb/CMakeFiles/tbb_test_task_auto_init.dir/build.make tbb/CMakeFiles/tbb_test_task_auto_init.dir/build
+.PHONY : tbb_test_task_auto_init/fast
+
 A*.o: A*.cpp.o
 
 .PHONY : A*.o
@@ -156,9 +1318,99 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
-	@echo "... A*"
 	@echo "... rebuild_cache"
+	@echo "... install/strip"
+	@echo "... A*"
+	@echo "... install/local"
+	@echo "... list_install_components"
+	@echo "... install"
+	@echo "... edit_cache"
+	@echo "... tbb_test_yield"
+	@echo "... tbb_test_tuple"
+	@echo "... tbb_test_tbb_thread"
+	@echo "... tbb_test_tbb_fork"
+	@echo "... tbb_test_tbb_condition_variable"
+	@echo "... tbb_test_task_scheduler_observer"
+	@echo "... tbb_test_cache_aligned_allocator_STL"
+	@echo "... tbb_test_priority_queue_node"
+	@echo "... tbb_test_concurrent_vector"
+	@echo "... tbb_test_concurrent_unordered_map"
+	@echo "... tbb_test_ittnotify"
+	@echo "... tbb_test_malloc_compliance"
+	@echo "... tbb_test_concurrent_lru_cache"
+	@echo "... tbb_test_buffer_node"
+	@echo "... tbb_test_parallel_reduce"
+	@echo "... tbb_test_composite_node"
+	@echo "... tbb_test_write_once_node"
+	@echo "... tbb_test_combinable"
+	@echo "... tbb_test_reader_writer_lock"
+	@echo "... tbb_test_cache_aligned_allocator"
+	@echo "... tbbmalloc"
+	@echo "... tbb_test_indexer_node"
+	@echo "... tbb_test_blocked_range3d"
+	@echo "... tbb_test_concurrent_hash_map"
+	@echo "... tbb_test_aggregator"
+	@echo "... tbb_test_flow_graph_whitebox"
+	@echo "... tbb_static"
+	@echo "... tbb_test_cilk_interop"
+	@echo "... tbb_test_blocked_range2d"
+	@echo "... tbbmalloc_proxy"
+	@echo "... tbb_test_parallel_while"
+	@echo "... tbb_test_aligned_space"
+	@echo "... tbb_test_enumerable_thread_specific"
+	@echo "... tbb_test_parallel_for_vectorization"
+	@echo "... tbb_test_parallel_sort"
+	@echo "... tbb_test_flow_graph"
+	@echo "... tbb_test_examples_common_utility"
+	@echo "... tbb_test_model_plugin"
+	@echo "... tbb_test_mutex_native_threads"
+	@echo "... tbb_test_limiter_node"
+	@echo "... tbbmalloc_static"
+	@echo "... tbb_test_intrusive_list"
+	@echo "... tbb_test_concurrent_queue"
+	@echo "... tbb_test_assembly"
+	@echo "... tbb_test_cilk_dynamic_load"
+	@echo "... tbb_test_malloc_init_shutdown"
+	@echo "... tbb_test_broadcast_node"
+	@echo "... tbb_test_tick_count"
+	@echo "... tbb_test_async_node"
+	@echo "... tbb_test_critical_section"
+	@echo "... tbbmalloc_proxy_static"
+	@echo "... tbb_test_parallel_invoke"
+	@echo "... tbb_test_source_node"
+	@echo "... tbb_test_blocked_range"
+	@echo "... tbb_test_halt"
+	@echo "... tbb_test_handle_perror"
+	@echo "... tbb_test_inits_loop"
+	@echo "... tbb_def_files"
+	@echo "... tbb_test_tagged_msg"
+	@echo "... tbb_test_malloc_pools"
+	@echo "... tbb_test_task_steal_limit"
+	@echo "... tbb_test_static_assert"
+	@echo "... tbb_test_lambda"
+	@echo "... tbb_test_mutex"
+	@echo "... tbb_test_malloc_regression"
+	@echo "... tbb_test_overwrite_node"
+	@echo "... tbb_test_openmp"
+	@echo "... tbb_test_ScalableAllocator_STL"
+	@echo "... tbb_test_parallel_for"
+	@echo "... tbb_test_eh_flow_graph"
+	@echo "... tbb_test_parallel_for_each"
+	@echo "... tbb_test_parallel_pipeline"
+	@echo "... tbb_test_continue_node"
+	@echo "... tbb_test_pipeline"
+	@echo "... tbb_test_rwm_upgrade_downgrade"
+	@echo "... tbb_test_queue_node"
+	@echo "... tbb_test_semaphore"
+	@echo "... tbb_test_async_msg"
+	@echo "... tbb_test_task"
+	@echo "... tbb"
+	@echo "... tbb_test_task_group"
+	@echo "... tbb_test_split_node"
+	@echo "... tbb_test_parallel_scan"
+	@echo "... tbb_test_std_thread"
+	@echo "... tbb_test_dynamic_link"
+	@echo "... tbb_test_task_auto_init"
 	@echo "... A*.o"
 	@echo "... A*.i"
 	@echo "... A*.s"

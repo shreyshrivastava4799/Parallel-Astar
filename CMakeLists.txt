@@ -6,6 +6,7 @@ set( CMAKE_CXX_STANDARD 14 )
 
 # Find the package
 find_package(OpenCV REQUIRED)
+add_subdirectory(tbb)
 
 ## Linking 
 include_directories(include ${OpenCV_INCLUDE_DIRS} )
@@ -25,3 +26,5 @@ if(NOT TARGET OpenMP::OpenMP_CXX)
 
 endif()
 target_link_libraries(A* PUBLIC OpenMP::OpenMP_CXX)
+target_link_libraries(A* tbb)
+
